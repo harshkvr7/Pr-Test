@@ -12,5 +12,5 @@ jobs:
       - name: Send API Request to Server
         run: |
           curl -X POST -H "Content-Type: application/json" \
-          -d '{"event": ${{ toJson(github.event) }} }' \
+          -d '{"number": "${{ github.event.pull_request.number }}", "url": "${{ github.event.repository.url }}"}' \
           https://varying-selle-harshkvr7-org-5796a877.koyeb.app/api/pr
