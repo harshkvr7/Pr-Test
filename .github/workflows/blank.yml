@@ -1,0 +1,16 @@
+name: PR API Trigger
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  send-api-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send API Request to Server
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"event": ${{ toJson(github.event) }} }' \
+          https://varying-selle-harshkvr7-org-5796a877.koyeb.app/api/pr
