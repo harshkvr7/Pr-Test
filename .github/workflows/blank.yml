@@ -9,8 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
       - name: Send API Request to Server
         run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          REPO_URL="${{ github.event.repository.html_url }}"
+          PAYLOAD=$(jq -n --arg number "$PR_NUMBER" --arg url "$REPO_URL" '{number: $number, url: $url}')
+          
           curl -X POST -H "Content-Type: application/json" \
-          -d "{\"number\": ${GITHUB_EVENT_NUMBER}, \"url\": \"${{ github.event.repository.html_url }}\"}" \
+          -d "$PAYLOAD" \
           https://varying-selle-harshkvr7-org-5796a877.koyeb.app/api/pr
