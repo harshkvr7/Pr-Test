@@ -12,7 +12,7 @@ jobs:
       - name: Construct and Send API Request
         run: |
           PR_NUMBER="${{ github.event.pull_request.number }}"
-          REPO_URL="${{ github.event.repository.html_url }}"
+          REPO_URL="${{ github.event.repository.url }}"
           FULL_URL="${REPO_URL}/pulls/${PR_NUMBER}/files"
           
           curl -X POST -H "Content-Type: application/json" \
